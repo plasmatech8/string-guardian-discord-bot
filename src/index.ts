@@ -5,10 +5,15 @@ export default {
 		const signature = request.headers.get('x-signature-ed25519');
 		const timestamp = request.headers.get('x-signature-timestamp');
 		const rawBody = await request.text();
-
+		console.log([...request.headers.entries()]);
 		// Verify the request
 		const PUBLIC_KEY = env.PUBLIC_KEY;
-		const isValidRequest = verifyKey(rawBody, signature!, timestamp!, PUBLIC_KEY);
+		const isValidRequest = await verifyKey(rawBody, signature!, timestamp!, PUBLIC_KEY);
+
+		if (!signature || !timestamp || !PUBLIC_KEY) {
+			console.log(signature, timestamp, PUBLIC_KEY);
+			return new Response('Missing signature, timestamp, or public key', { status: 401 });
+		}
 
 		if (!isValidRequest) {
 			return new Response('Invalid request signature', { status: 401 });
