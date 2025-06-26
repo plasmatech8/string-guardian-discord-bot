@@ -34,5 +34,5 @@ fetch(url, {
 	})
 	.catch((err) => {
 		console.error('❌ Error registering commands:', err);
-		process.exit(1);
+		throw new Error(err);
 	});
