@@ -32,3 +32,7 @@ jobs:
 
       - name: Register Discord Commands
         run: npm run register
+        env:
+            APP_ID: ${{ secrets.APP_ID }}
+            BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+            PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
