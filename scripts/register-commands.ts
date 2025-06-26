@@ -28,11 +28,17 @@ fetch(url, {
 	},
 	body: JSON.stringify(commands),
 })
-	.then((res) => res.json())
+	.then(async (res) => {
+		if (!res.ok) {
+			const errorJson = await res.json();
+			throw new Error(`Failed to register commands: ${res.status} ${res.statusText} - ${JSON.stringify(errorJson)}`);
+		}
+		return res.json();
+	})
 	.then((json) => {
 		console.log('✅ Commands registered:', JSON.stringify(json, null, 2));
 	})
 	.catch((err) => {
 		console.error('❌ Error registering commands:', err);
-		throw new Error(err);
+		process.exit(1);
 	});
