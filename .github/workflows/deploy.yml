@@ -1,4 +1,4 @@
-name: Deploy Worker
+name: Deploy Worker & Register Bot
 
 on:
   push:
@@ -29,3 +29,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           wrangler deploy
+
+      - name: Register Discord Commands
+        run: npm register
