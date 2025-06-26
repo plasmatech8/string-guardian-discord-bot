@@ -31,4 +31,4 @@ jobs:
           wrangler deploy
 
       - name: Register Discord Commands
-        run: npm register
+        run: npm run register
