@@ -41,7 +41,7 @@ export function handleRevealStringAction(interaction: any) {
 	const messageId = interaction.message.id;
 
 	// Log to the channel
-	const logMessage = `👁️ <@${userId}> has viewed the protected string (${messageId})`;
+	const logMessage = '```\nconnect ip-address; password my-password;\n```';
 
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -57,7 +57,13 @@ export function handleViewLogsAction(interaction: any) {
 	const messageId = interaction.message.id;
 
 	// Log to the channel
-	const logMessage = `👁️ <@${userId}> has viewed the access logs (${messageId})`;
+	const viewers = { '745555053435158619': 1751006870, '1200672915574751313': 1751007071, '555279627749294080': 1751006972 };
+
+	const logMessage = Object.entries(viewers)
+		.sort(([_1, t1], [_2, t2]) => (t1 > t2 ? 1 : -1))
+		.map(([userId, timestamp]) => `- <@${userId}> viewed the string on <t:${timestamp}:F>`)
+		.join('\n');
+	console.log(logMessage);
 
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
