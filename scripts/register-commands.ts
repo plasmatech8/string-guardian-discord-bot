@@ -1,11 +1,11 @@
-import 'dotenv/config';
+require('dotenv').config({ path: '.dev.vars' });
 
 const APP_ID = process.env.APP_ID!;
 const BOT_TOKEN = process.env.BOT_TOKEN!;
 
 const commands = [
 	{
-		name: 'stringprotect',
+		name: 'string',
 		description: 'Protect a message behind a reveal button',
 		options: [
 			{

@@ -1,78 +1,53 @@
-import { InteractionType, InteractionResponseType, verifyKey } from 'discord-interactions';
+import { InteractionType, verifyKey } from 'discord-interactions';
+import { handlePingCommand, handleRevealStringAction, handleStringCommand, handleViewLogsAction } from './interactions';
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		const signature = request.headers.get('x-signature-ed25519');
 		const timestamp = request.headers.get('x-signature-timestamp');
 		const rawBody = await request.text();
-		console.log([...request.headers.entries()]);
+		const interaction = JSON.parse(rawBody);
+		// console.log(interaction);
+
 		// Verify the request
 		const PUBLIC_KEY = env.PUBLIC_KEY;
 		const isValidRequest = await verifyKey(rawBody, signature!, timestamp!, PUBLIC_KEY);
-
 		if (!signature || !timestamp || !PUBLIC_KEY) {
 			console.log(signature, timestamp, PUBLIC_KEY);
 			return new Response('Missing signature, timestamp, or public key', { status: 401 });
 		}
-
 		if (!isValidRequest) {
 			return new Response('Invalid request signature', { status: 401 });
 		}
 
-		const interaction = JSON.parse(rawBody);
-
 		// 1. Ping check
 		if (interaction.type === InteractionType.PING) {
-			return Response.json({ type: InteractionResponseType.PONG });
+			return handlePingCommand();
 		}
 
-		// 2. Slash command: /stringprotect
+		// 2. Slash commands
 		if (interaction.type === InteractionType.APPLICATION_COMMAND) {
-			const message = interaction.data.options?.[0]?.value ?? 'No content';
-			const customId = crypto.randomUUID(); // temporary ID
-			// NOTE: you'd store `customId -> message` in D1 here
-
-			return Response.json({
-				type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-				data: {
-					content: '🔐 A protected message was created.',
-					components: [
-						{
-							type: 1, // action row
-							components: [
-								{
-									type: 2, // button
-									style: 1,
-									label: 'Reveal Info',
-									custom_id: customId,
-								},
-							],
-						},
-					],
-				},
-			});
+			switch (interaction.data.name) {
+				case 'string':
+					return handleStringCommand(interaction);
+				default:
+					return new Response('Invalid command name', { status: 400 });
+			}
 		}
 
-		// 3. Button interaction (MESSAGE_COMPONENT)
+		// 3. Button interactions
 		if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
-			const userId = interaction.member.user.id;
-			const customId = interaction.data.custom_id;
-
-			// Normally you'd fetch the real protected string using the `customId`
-			const protectedString = 'Server IP: 1.2.3.4, Password: swordfish';
-
-			// Log to the channel
-			const logMessage = `👁️ <@${userId}> has viewed the protected message.`;
-
-			return Response.json({
-				type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-				data: {
-					content: logMessage,
-					flags: 64, // ephemeral message (only user sees it)
-				},
-			});
+			switch (interaction.data.custom_id) {
+				case 'reveal_string':
+					return handleRevealStringAction(interaction);
+				case 'view_logs':
+					return handleViewLogsAction(interaction);
+				default:
+					return new Response('Invalid button interaction ID', { status: 400 });
+			}
 		}
 
+		// 4. Unhandled
 		return new Response('Unhandled interaction type', { status: 400 });
 	},
 } satisfies ExportedHandler<Env>;
