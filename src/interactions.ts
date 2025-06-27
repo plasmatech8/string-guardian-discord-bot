@@ -28,7 +28,6 @@ export function handleStringCommand(interaction: any) {
 							style: 1,
 							label: 'View Logs',
 							custom_id: 'view_logs',
-							name: '???',
 						},
 					],
 				},
