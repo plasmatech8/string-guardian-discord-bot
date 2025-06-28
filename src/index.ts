@@ -2,12 +2,13 @@ import { InteractionType, verifyKey } from 'discord-interactions';
 import { handlePingCommand, handleRevealStringAction, handleStringCommand, handleViewLogsAction } from './interactions';
 
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
+	async fetch(request, env): Promise<Response> {
 		const signature = request.headers.get('x-signature-ed25519');
 		const timestamp = request.headers.get('x-signature-timestamp');
 		const rawBody = await request.text();
 		const interaction = JSON.parse(rawBody);
-		// console.log(interaction);
+		const db = env.DB;
+		console.log(interaction);
 
 		// Verify the request
 		const PUBLIC_KEY = env.PUBLIC_KEY;
@@ -29,7 +30,7 @@ export default {
 		if (interaction.type === InteractionType.APPLICATION_COMMAND) {
 			switch (interaction.data.name) {
 				case 'string':
-					return handleStringCommand(interaction);
+					return handleStringCommand({ interaction, db });
 				default:
 					return new Response('Invalid command name', { status: 400 });
 			}
@@ -37,11 +38,12 @@ export default {
 
 		// 3. Button interactions
 		if (interaction.type === InteractionType.MESSAGE_COMPONENT) {
-			switch (interaction.data.custom_id) {
+			const [action, id] = interaction.data.custom_id.split('#');
+			switch (action) {
 				case 'reveal_string':
-					return handleRevealStringAction(interaction);
+					return handleRevealStringAction({ interaction, id, db });
 				case 'view_logs':
-					return handleViewLogsAction(interaction);
+					return handleViewLogsAction({ interaction, id, db });
 				default:
 					return new Response('Invalid button interaction ID', { status: 400 });
 			}

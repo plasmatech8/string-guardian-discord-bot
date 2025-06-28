@@ -4,10 +4,27 @@ export function handlePingCommand() {
 	return Response.json({ type: InteractionResponseType.PONG });
 }
 
-export function handleStringCommand(interaction: any) {
+/*
+		const id = (Math.random() * 1000).toFixed();
+		const {} = await env.DB.prepare('INSERT INTO protected_strings (id, created_by) VALUES (?, ?)').bind(id, '1200672915574751313').run();
+		const {} = await env.DB.prepare('UPDATE protected_strings SET viewers = ? WHERE id = ?')
+			.bind('{ "1200672915574751313": 1751020207 }}',id)
+			.all();
+		const { results } = await env.DB.prepare('SELECT * FROM protected_strings').bind().all();
+		console.log(results);
+		*/
+
+export interface CommandInput {
+	interaction: any;
+	db: D1Database;
+}
+
+export async function handleStringCommand({ interaction, db }: CommandInput) {
+	// Insert into database
 	const message = interaction.data.options?.[0]?.value ?? 'No content';
-	const customId = crypto.randomUUID(); // temporary ID
-	// NOTE: you'd store `customId -> message` in D1 here
+	const userId = interaction.member.user.id;
+	const response = await db.prepare('INSERT INTO protected_strings (string, created_by) VALUES (?, ?);').bind(message, userId).run();
+	const id = response.meta.last_row_id;
 
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -21,13 +38,13 @@ export function handleStringCommand(interaction: any) {
 							type: 2, // button
 							style: 1,
 							label: 'Reveal String',
-							custom_id: 'reveal_string',
+							custom_id: `reveal_string#${id}`,
 						},
 						{
 							type: 2, // button
 							style: 1,
 							label: 'View Logs',
-							custom_id: 'view_logs',
+							custom_id: `view_logs#${id}`,
 						},
 					],
 				},
@@ -36,23 +53,39 @@ export function handleStringCommand(interaction: any) {
 	});
 }
 
-export function handleRevealStringAction(interaction: any) {
-	const userId = interaction.member.user.id;
-	const messageId = interaction.message.id;
+export interface ActionInput {
+	interaction: any;
+	db: D1Database;
+	id: string;
+}
 
-	// Log to the channel
-	const logMessage = '```\nconnect ip-address; password my-password;\n```';
+export async function handleRevealStringAction({ interaction, db, id }: ActionInput) {
+	// Fetch record from database
+	const messageId = interaction.message.id;
+	const result = await db.prepare('SELECT * FROM protected_strings WHERE id = ?').bind(id).first();
+	if (!result) throw new Error('Error retrieving record from database');
+
+	// Add user to viewers if have not already seen the string
+	const viewers = JSON.parse(result.viewers as string);
+	const userId = interaction.member.user.id;
+	if (!(userId in viewers)) {
+		console.log(`${userId} IS NOT IN ${viewers}`);
+	}
+
+	// Return string as ephemeral message
+	const protectedString = result.string;
+	const stringMessage = `\`\`\`\n${protectedString}\n\`\`\``;
 
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: logMessage,
+			content: stringMessage,
 			flags: 64, // ephemeral message (only user sees it)
 		},
 	});
 }
 
-export function handleViewLogsAction(interaction: any) {
+export function handleViewLogsAction({ interaction, db, id }: ActionInput) {
 	const userId = interaction.member.user.id;
 	const messageId = interaction.message.id;
 

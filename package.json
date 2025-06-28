@@ -8,7 +8,8 @@
 		"start": "wrangler dev",
 		"test": "vitest",
 		"cf-typegen": "wrangler types",
-		"register": "tsx scripts/register-commands.ts"
+		"register": "tsx scripts/register-commands.ts",
+		"db:reset": "rm -r .wrangler/state/v3/*/* && yes | wrangler d1 migrations apply string-guardian --local"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
