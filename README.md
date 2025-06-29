@@ -13,9 +13,15 @@ This bot is ideal for **pickup game (PUG) servers** or any community where:
 
 ## 🎥 Demo
 
-<p align="center">
-  <video src="assets/string_guardian_demo.mp4"></video>
-</p>
+[▶️ Watch a short demo](assets/string_guardian_demo.mp4)
+
+2
+
+<video src="assets/string_guardian_demo.mp4" controls></video>
+
+3
+
+<iframe width="560" height="315" src="assets/string_guardian_demo.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 📌 Usage
 
