@@ -23,7 +23,12 @@ export async function handleStringCommand({ interaction, db }: CommandInput) {
 	// Insert into database
 	const message = interaction.data.options?.[0]?.value ?? 'No content';
 	const userId = interaction.member.user.id;
-	const response = await db.prepare('INSERT INTO protected_strings (string, created_by) VALUES (?, ?);').bind(message, userId).run();
+	const guildId = interaction.guild_id;
+	const channelId = interaction.channel_id;
+	const response = await db
+		.prepare('INSERT INTO protected_strings (string, created_by, guild_id, channel_id) VALUES (?, ?, ?, ?);')
+		.bind(message, userId, guildId, channelId)
+		.run();
 	const id = response.meta.last_row_id;
 
 	return Response.json({
@@ -60,16 +65,19 @@ export interface ActionInput {
 }
 
 export async function handleRevealStringAction({ interaction, db, id }: ActionInput) {
-	// Fetch record from database
-	const messageId = interaction.message.id;
+	// Query database
 	const result = await db.prepare('SELECT * FROM protected_strings WHERE id = ?').bind(id).first();
 	if (!result) throw new Error('Error retrieving record from database');
+	console.log(result);
 
 	// Add user to viewers if have not already seen the string
 	const viewers = JSON.parse(result.viewers as string);
 	const userId = interaction.member.user.id;
 	if (!(userId in viewers)) {
-		console.log(`${userId} IS NOT IN ${viewers}`);
+		// console.log(`${userId} IS NOT IN ${viewers}`);
+		const timestamp = Math.floor(Date.now() / 1000);
+		const newViewers = { ...viewers, [userId]: timestamp };
+		await db.prepare('UPDATE protected_strings SET viewers = ? WHERE id = ?').bind(JSON.stringify(newViewers), id).run();
 	}
 
 	// Return string as ephemeral message
@@ -85,23 +93,25 @@ export async function handleRevealStringAction({ interaction, db, id }: ActionIn
 	});
 }
 
-export function handleViewLogsAction({ interaction, db, id }: ActionInput) {
-	const userId = interaction.member.user.id;
-	const messageId = interaction.message.id;
+export async function handleViewLogsAction({ interaction, db, id }: ActionInput) {
+	// Query database
+	const result = await db.prepare('SELECT * FROM protected_strings WHERE id = ?').bind(id).first();
+	if (!result) throw new Error('Error retrieving record from database');
+	// console.log(result);
 
-	// Log to the channel
-	const viewers = { '745555053435158619': 1751006870, '1200672915574751313': 1751007071, '555279627749294080': 1751006972 };
-
-	const logMessage = Object.entries(viewers)
-		.sort(([_1, t1], [_2, t2]) => (t1 > t2 ? 1 : -1))
-		.map(([userId, timestamp]) => `- <@${userId}> viewed the string on <t:${timestamp}:F>`)
-		.join('\n');
-	console.log(logMessage);
+	// Return information as ephemeral message
+	const viewers = JSON.parse(result.viewers as string) as Record<string, number>;
+	const logsMessage =
+		Object.entries(viewers)
+			.sort(([_1, t1], [_2, t2]) => (t1 > t2 ? 1 : -1))
+			.map(([userId, timestamp]) => `- <@${userId}> viewed the string on <t:${timestamp}:F>`)
+			.join('\n') || '👻 This string has not been viewed by anyone yet.';
+	// console.log(logsMessage);
 
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: logMessage,
+			content: logsMessage,
 			flags: 64, // ephemeral message (only user sees it)
 		},
 	});
