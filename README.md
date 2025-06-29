@@ -1,8 +1,9 @@
+
+# 🛡️ String Guardian Discord Bot
+
 <p align="center">
   <img src="assets/string_guardian_logo.png" alt="String Guardian Logo" width="200"/>
 </p>
-
-# 🛡️ String Guardian Discord Bot
 
 **String Guardian** is a serverless Discord bot that protects sensitive messages (like game server connection strings or passwords) behind a reveal button. It also logs which users accessed the message.
 
@@ -13,15 +14,7 @@ This bot is ideal for **pickup game (PUG) servers** or any community where:
 
 ## 🎥 Demo
 
-[▶️ Watch a short demo](assets/string_guardian_demo.mp4)
-
-2
-
-<video src="assets/string_guardian_demo.mp4" controls></video>
-
-3
-
-<iframe width="560" height="315" src="assets/string_guardian_demo.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<img src="assets/string_guardian_demo.gif" alt="Demo GIF"/>
 
 ## 📌 Usage
 
