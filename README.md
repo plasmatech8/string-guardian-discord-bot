@@ -1,8 +1,8 @@
-# 🛡️ String Guardian Discord Bot
-
 <p align="center">
   <img src="assets/string_guardian_logo.png" alt="String Guardian Logo" width="200"/>
 </p>
+
+# 🛡️ String Guardian Discord Bot
 
 **String Guardian** is a serverless Discord bot that protects sensitive messages (like game server connection strings or passwords) behind a reveal button. It also logs which users accessed the message.
 
