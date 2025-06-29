@@ -5,6 +5,8 @@
   <img src="assets/string_guardian_logo.png" alt="String Guardian Logo" width="200"/>
 </p>
 
+> **Helps moderators find trolls while keeping connection info or passwords public.**
+
 **String Guardian** is a serverless Discord bot that protects sensitive messages (like game server connection strings or passwords) behind a reveal button. It also logs which users accessed the message.
 
 This bot is ideal for **pickup game (PUG) servers** or any community where:
