@@ -35,7 +35,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          wrangler d1 migrations apply
+          wrangler d1 migrations apply string-guardian
 
       - name: Register Discord Commands
         run: npm run register
