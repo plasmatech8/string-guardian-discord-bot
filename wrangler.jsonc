@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "string-warden",
+	"name": "string-guradian",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-06-20",
 	"observability": {
