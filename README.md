@@ -13,7 +13,9 @@ This bot is ideal for **pickup game (PUG) servers** or any community where:
 
 ## 🎥 Demo
 
-[▶️ Watch a short demo](assets/string_guardian_demo.mp4)
+<p align="center">
+  <video src="assets/string_guardian_demo.mp4"></video>
+</p>
 
 ## 📌 Usage
 
