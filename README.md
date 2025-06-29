@@ -1,39 +1,56 @@
-# string-guardian-discord-bot
+# 🛡️ String Guardian Discord Bot
 
-## Usage
+<p align="center">
+  <img src="assets/string_guardian_logo.png" alt="String Guardian Logo" width="200"/>
+</p>
 
-Create a protected string message by using the `/string <my-protected-string>` command. 
+**String Guardian** is a serverless Discord bot that protects sensitive messages (like game server connection strings or passwords) behind a reveal button. It also logs which users accessed the message.
 
-```
+This bot is ideal for **pickup game (PUG) servers** or any community where:
+- You want to post connection info in a public channel
+- You need to track which Discord members viewed it
+- You want to take action against trolls, harassers, or DDoSers
+
+## 🎥 Demo
+
+[▶️ Watch a short demo](assets/string_guardian_demo.mp4)
+
+## 📌 Usage
+
+Create a protected string message using the slash command:
+
+```bash
 /string "connect ip-address; password my-password;"
 ```
 
-This will push a message to the chat:
+This will send a message to the channel.
 
 ```
-🔐 A protected string was created by @Plasma
+🔐 A protected message was created.
 
-[ Reveal String ] [ View Log ]
+[ Reveal String ] [ View Logs ]
 ```
 
-The "Reveal String" button will log the user ID to the database and 
-then send an ephemeral message to the user who clicked on the button.
-The message will contain the string inside I code block (which has a 
-copy button for ease of use). 
+### 🔓 Reveal Button
+
+When a user clicks the **Reveal String** button:
+- Logs the user's ID + timestamp
+- Sends the string to the user as an **ephemeral message**
 
 ```
 connect ip-address; password my-password;
 ```
 
-The "View Log" button will send an ephemeral message to the user
-containing a list of users who have accessed the string.
+### 📜 View Logs Button
+
+When a user clicks the **View Logs** button:
+- Sends the user an **ephemeral message** listing everyone who viewed the string and when
 
 ```
-| user     | first accessed at     |
-|----------|-----------------------|
-| @Plasma  | 2025-06-23 14:03:00   |
-| @Nova    | 2025-06-22 10:45:12   |
-| @Echo    | 2025-06-21 19:20:47   |
-| @Blitz   | 2025-06-20 08:33:29   |
-| @Orbit   | 2025-06-19 16:18:55   |
+@Plasma viewed the string on Sunday, June 29, 2025 at 7:17 PM
+@MJ123435 viewed the string on Sunday, June 29, 2025 at 11:56 PM
 ```
+
+## License
+
+MIT
