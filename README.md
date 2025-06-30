@@ -61,10 +61,10 @@ To add **String Guardian** to your Discord server:
 
 <details>
 
-Ensure that the Discord bot is created on the Discord website.
+Ensure that the Discord bot is created on the Discord developer portal.
 
 First, create secret/env variables in `.dev.vars`.
-For local development, cloudflare variables are not required.
+For local development, Cloudflare variables are not required.
 
 Register the Discord commands using the registration script:
 ```bash
@@ -82,12 +82,15 @@ Reset (& run migrations) for the local D1 development database:
 npm run db:reset
 ```
 
-Ensure Ngrok is installed and run it to provide a reverse proxy to access your locally-running bot:
+Ensure Ngrok is installed and run it to provide a reverse proxy to access your
+locally-running bot:
 ```bash
 ngrok 8787
 ```
 
-Copy the global URL and paste it into the "Interactions URL" input on the discord website.
+Copy the global URL and paste it into the "Interactions URL" input for your App
+in the Discord developer portal.
+
 You can now install the bot onto a Discord server and test your locally-running code.
 
 </details>
