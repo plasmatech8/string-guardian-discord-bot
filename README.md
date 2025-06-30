@@ -28,31 +28,22 @@ Create a protected string message using the slash command:
 
 This will send a message to the channel.
 
-```
-🔐 A protected message was created.
-
-[ Reveal String ] [ View Logs ]
-```
+![Protected string create message](assets/demo_screenshot_string_created.png)
 
 ### 🔓 Reveal Button
 
 When a user clicks the **Reveal String** button:
 - Logs the user's ID + timestamp
-- Sends the string to the user as an **ephemeral message**
+- Sends the string to the user as an **ephemeral message** (only the user can view)
 
-```
-connect ip-address; password my-password;
-```
+![The ephemeral message sent after clicking the reveal string button](assets/demo_screenshot_reveal_string.png)
 
 ### 📜 View Logs Button
 
 When a user clicks the **View Logs** button:
 - Sends the user an **ephemeral message** listing everyone who viewed the string and when
 
-```
-@Plasma viewed the string on Sunday, June 29, 2025 at 7:17 PM
-@MJ123435 viewed the string on Sunday, June 29, 2025 at 11:56 PM
-```
+![The ephemeral message sent after clicking the view logs button](assets/demo_screenshot_view_logs.png)
 
 ## 🚀 Installation (for server admins)
 
