@@ -57,6 +57,10 @@ To add **String Guardian** to your Discord server:
 
 ## 🛠️ Development Setup
 
+️<br>
+
+<details>
+
 Ensure that the Discord bot is created on the Discord website.
 
 First, create secret/env variables in `.dev.vars`.
@@ -85,6 +89,10 @@ ngrok 8787
 
 Copy the global URL and paste it into the "Interactions URL" input on the discord website.
 You can now install the bot onto a Discord server and test your locally-running code.
+
+</details>
+
+️<br>
 
 ## License
 
