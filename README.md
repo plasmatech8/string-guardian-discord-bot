@@ -54,6 +54,16 @@ When a user clicks the **View Logs** button:
 @MJ123435 viewed the string on Sunday, June 29, 2025 at 11:56 PM
 ```
 
+## 🚀 Installation (for server admins)
+
+To add **String Guardian** to your Discord server:
+
+👉 [**Click here to invite the bot**](https://discord.com/oauth2/authorize?client_id=1387414117106581625)
+
+## 🛠️ Development Setup
+
+TODO
+
 ## License
 
 MIT
