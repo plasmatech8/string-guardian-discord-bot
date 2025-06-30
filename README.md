@@ -73,6 +73,11 @@ npm install
 npm run dev
 ```
 
+Reset (& run migrations) for the local D1 development database:
+```bash
+npm run db:reset
+```
+
 Ensure Ngrok is installed and run it to provide a reverse proxy to access your locally-running bot:
 ```bash
 ngrok 8787
