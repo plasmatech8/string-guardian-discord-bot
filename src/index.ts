@@ -38,11 +38,8 @@ export default {
 			TODO: New commands
 
 			/book
-				-> books a server based on the configuration
-
-			/bookconfig au.serveme.tf API_KEY
-				-> configures the /book command for the specific user and channel
-				-> may require additional parameters depending on which provider is used
+			/book config PROVIDER API_KEY PARAMS...
+			/book set KEY VALUE
 			*/
 		}
 
