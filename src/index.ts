@@ -33,6 +33,17 @@ export default {
 				default:
 					return new Response('Invalid command name', { status: 400 });
 			}
+
+			/*
+			TODO: New commands
+
+			/book
+				-> books a server based on the configuration
+
+			/bookconfig au.serveme.tf API_KEY
+				-> configures the /book command for the specific user and channel
+				-> may require additional parameters depending on which provider is used
+			*/
 		}
 
 		// 3. Button interactions
