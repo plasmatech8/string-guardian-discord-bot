@@ -1,3 +1,4 @@
 Protects sensitive strings (e.g. game server connection details) behind a reveal button, logging which users have viewed them. Designed to support moderation in PUG and community servers.
 
-View the GitHub repository for documentation, privacy policy, and source code. (https://github.com/plasmatech8/string-guardian-discord-bot)
+View the GitHub repository for documentation, privacy policy, and source code:
+https://github.com/plasmatech8/string-guardian-discord-bot
