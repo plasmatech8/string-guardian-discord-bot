@@ -87,7 +87,7 @@ npm run db:reset
 Ensure Ngrok is installed and run it to provide a reverse proxy to access your
 locally-running bot:
 ```bash
-ngrok 8787
+ngrok http 8787
 ```
 
 Copy the global URL from the Ngrok console and paste it into the
