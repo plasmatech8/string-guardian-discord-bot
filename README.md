@@ -49,22 +49,25 @@ When a user clicks the **View Logs** button:
 
 To add **String Guardian** to your Discord server:
 
-️<br>
+👉 [**Click here to invite the bot**](https://discord.com/oauth2/authorize?client_id=1387414117106581625)
 
-👉 [**Click here to invite the bot**](https://discord.com/oauth2/authorize?client_id=1387414117106581625) 👈
+*Disclaimer: This bot stores data such as Discord user/guild/channel ID and timestamps. Data will not be shared unless required for legal compliance. Data may be deleted at any time at the discretion of the bot owner.*
 
-️<br>
 
 ## 🛠️ Development Setup
 
-️<br>
-
 <details>
+<summary>Local Development</summary>
 
 Ensure that the Discord bot is created on the Discord developer portal.
 
-First, create secret/env variables in `.dev.vars`.
-For local development, Cloudflare variables are not required.
+Create `.dev.vars` and fill the variables as per `.dev.vars.example` using
+information from the Discord developer portal.
+
+Install NPM dependencies:
+```bash
+npm install
+```
 
 Register the Discord commands using the registration script:
 ```bash
@@ -73,7 +76,6 @@ npm run register
 
 Install and run local development server:
 ```bash
-npm install
 npm run dev
 ```
 
@@ -88,14 +90,30 @@ locally-running bot:
 ngrok 8787
 ```
 
-Copy the global URL and paste it into the "Interactions URL" input for your App
-in the Discord developer portal.
+Copy the global URL from the Ngrok console and paste it into the
+"Interactions URL" input field for your App in the Discord developer portal.
 
 You can now install the bot onto a Discord server and test your locally-running code.
 
 </details>
 
-️<br>
+<details>
+<summary>Deployment</summary>
+
+To ensure that the CICD deployment pipeline work, ensure that the following secrets are
+configured under **Settings > Secrets and variables > Actions**:
+settings are configured:
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+To ensure that the deployed Cloudflare Worker has the environment variables required for operation,
+ensure that the following secrets are configured under **Settings > Variables and Secrets**:
+- `APP_ID`
+- `BOT_TOKEN`
+- `PUBLIC_KEY`
+
+
+</details>
 
 ## License
 
