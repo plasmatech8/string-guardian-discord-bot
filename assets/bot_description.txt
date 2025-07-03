@@ -1,3 +1,3 @@
 Protects sensitive strings (e.g. game server connection details) behind a reveal button, logging which users have viewed them. Designed to support moderation in PUG and community servers.
 
-This bot stores data including user ID, guild/channel ID, and timestamps. Data will only be shared in compliance with legal requests. Data stored may be deleted at any time at the discretion of the bot owner.
+View the GitHub repository for documentation, privacy policy, and source code. (https://github.com/plasmatech8/string-guardian-discord-bot)
