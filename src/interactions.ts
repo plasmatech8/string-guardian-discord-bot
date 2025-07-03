@@ -4,16 +4,6 @@ export function handlePingCommand() {
 	return Response.json({ type: InteractionResponseType.PONG });
 }
 
-/*
-		const id = (Math.random() * 1000).toFixed();
-		const {} = await env.DB.prepare('INSERT INTO protected_strings (id, created_by) VALUES (?, ?)').bind(id, '1200672915574751313').run();
-		const {} = await env.DB.prepare('UPDATE protected_strings SET viewers = ? WHERE id = ?')
-			.bind('{ "1200672915574751313": 1751020207 }}',id)
-			.all();
-		const { results } = await env.DB.prepare('SELECT * FROM protected_strings').bind().all();
-		console.log(results);
-		*/
-
 export interface CommandInput {
 	interaction: any;
 	db: D1Database;

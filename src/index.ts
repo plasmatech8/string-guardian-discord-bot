@@ -8,7 +8,6 @@ export default {
 		const rawBody = await request.text();
 		const interaction = JSON.parse(rawBody);
 		const db = env.DB;
-		// console.log(interaction);
 
 		// Verify the request
 		const PUBLIC_KEY = env.PUBLIC_KEY;
