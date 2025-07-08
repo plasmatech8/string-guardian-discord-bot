@@ -94,7 +94,7 @@ export async function handleViewLogsAction({ interaction, db, id }: ActionInput)
 	const logsMessage =
 		Object.entries(viewers)
 			.sort(([_1, t1], [_2, t2]) => (t1 > t2 ? 1 : -1))
-			.map(([userId, timestamp]) => `- <@${userId}> viewed the string on <t:${timestamp}:F>`)
+			.map(([userId, timestamp]) => `- <@${userId}> <t:${timestamp}:F>`)
 			.join('\n') || '👻 This string has not been viewed by anyone yet.';
 	// console.log(logsMessage);
 
