@@ -66,8 +66,10 @@ export async function handleRevealStringAction({ interaction, db, id }: ActionIn
 	if (!(userId in viewers)) {
 		// console.log(`${userId} IS NOT IN ${viewers}`);
 		const timestamp = Math.floor(Date.now() / 1000);
-		const newViewers = { ...viewers, [userId]: timestamp };
-		await db.prepare('UPDATE protected_strings SET viewers = ? WHERE id = ?').bind(JSON.stringify(newViewers), id).run();
+		await db
+			.prepare("UPDATE protected_strings SET viewers = json_set(viewers, '$.' || ?, ?) WHERE id = ?")
+			.bind(userId, timestamp, id)
+			.run();
 	}
 
 	// Return string as ephemeral message
