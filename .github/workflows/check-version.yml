@@ -1,9 +1,6 @@
 name: Check package version bump
 
-on:
-  pull_request:
-    paths:
-      - 'package.json'
+on: [pull_request]
 
 jobs:
   check-version:
