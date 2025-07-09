@@ -1,0 +1,36 @@
+name: Check package version bump
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'migrations/**'
+      - 'scripts/**'
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get base branch version
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          git show origin/${{ github.base_ref }}:package.json > base-package.json
+          BASE_VERSION=$(jq -r .version base-package.json)
+          echo "BASE_VERSION=$BASE_VERSION" >> $GITHUB_ENV
+
+      - name: Get current version
+        run: |
+          CURRENT_VERSION=$(jq -r .version package.json)
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+
+      - name: Check if version is bumped
+        run: |
+          if [ "$CURRENT_VERSION" = "$BASE_VERSION" ]; then
+            echo "❌ Version has not been updated. ($CURRENT_VERSION)"
+            exit 1
+          else
+            echo "✅ Version updated from $BASE_VERSION to $CURRENT_VERSION"
+          fi
