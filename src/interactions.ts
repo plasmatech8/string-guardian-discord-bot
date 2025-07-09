@@ -1,5 +1,4 @@
-import { InteractionResponseType, MessageComponent } from 'discord-interactions';
-import { title } from 'process';
+import { InteractionResponseType } from 'discord-interactions';
 
 export function handlePingCommand() {
 	return Response.json({ type: InteractionResponseType.PONG });
