@@ -33,14 +33,6 @@ export default {
 				default:
 					return new Response('Invalid command name', { status: 400 });
 			}
-
-			/*
-			TODO: New commands
-
-			/book
-			/book config PROVIDER API_KEY PARAMS...
-			/book set KEY VALUE
-			*/
 		}
 
 		// 3. Button interactions
