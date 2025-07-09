@@ -15,7 +15,7 @@ export async function handleStringModalSubmit({ interaction, db }: { interaction
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: '🔐 A protected message was created.',
+			content: '🔐 A string was created.',
 			components: [
 				{
 					type: 1, // action row
