@@ -1,5 +1,11 @@
 import { InteractionType, verifyKey } from 'discord-interactions';
-import { handlePingCommand, handleRevealStringAction, handleStringCommand, handleViewLogsAction } from './interactions';
+import {
+	handlePingCommand,
+	handleRevealStringAction,
+	handleStringCommand,
+	handleStringModalSubmit,
+	handleViewLogsAction,
+} from './interactions';
 
 export default {
 	async fetch(request, env): Promise<Response> {
@@ -29,7 +35,7 @@ export default {
 		if (interaction.type === InteractionType.APPLICATION_COMMAND) {
 			switch (interaction.data.name) {
 				case 'string':
-					return handleStringCommand({ interaction, db });
+					return handleStringCommand();
 				default:
 					return new Response('Invalid command name', { status: 400 });
 			}
@@ -42,13 +48,21 @@ export default {
 				case 'reveal_string':
 					return handleRevealStringAction({ interaction, id, db });
 				case 'view_logs':
-					return handleViewLogsAction({ interaction, id, db });
+					return handleViewLogsAction({ id, db });
 				default:
 					return new Response('Invalid button interaction ID', { status: 400 });
 			}
 		}
 
-		// 4. Unhandled
+		// 4. Modal submit
+		if (interaction.type === InteractionType.MODAL_SUBMIT) {
+			if (interaction.data.custom_id === 'string_modal') {
+				return handleStringModalSubmit({ interaction, db });
+			}
+			return new Response('Invalid modal interaction ID', { status: 400 });
+		}
+
+		// 5. Unhandled
 		return new Response('Unhandled interaction type', { status: 400 });
 	},
 } satisfies ExportedHandler<Env>;

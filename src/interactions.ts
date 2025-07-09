@@ -1,23 +1,46 @@
-import { InteractionResponseType } from 'discord-interactions';
+import { InteractionResponseType, MessageComponent } from 'discord-interactions';
+import { title } from 'process';
 
 export function handlePingCommand() {
 	return Response.json({ type: InteractionResponseType.PONG });
 }
 
-export interface CommandInput {
-	interaction: any;
-	db: D1Database;
+export async function handleStringCommand() {
+	return Response.json({
+		type: InteractionResponseType.MODAL,
+		data: {
+			custom_id: 'string_modal',
+			title: 'Create Protected String',
+			components: [
+				{
+					type: 1, // Action Row
+					components: [
+						{
+							type: 4, // Text Input
+							custom_id: 'string_content',
+							label: 'Your String',
+							style: 1,
+							min_length: 1,
+							max_length: 800,
+							placeholder: 'String to protect...',
+							required: true,
+						},
+					],
+				},
+			],
+		},
+	});
 }
 
-export async function handleStringCommand({ interaction, db }: CommandInput) {
+export async function handleStringModalSubmit({ interaction, db }: { interaction: any; db: D1Database }) {
 	// Insert into database
-	const message = interaction.data.options?.[0]?.value ?? 'No content';
+	const stringContent = interaction.data.components[0].components[0].value ?? 'No content';
 	const userId = interaction.member.user.id;
 	const guildId = interaction.guild_id;
 	const channelId = interaction.channel_id;
 	const response = await db
 		.prepare('INSERT INTO protected_strings (string, created_by, guild_id, channel_id) VALUES (?, ?, ?, ?);')
-		.bind(message, userId, guildId, channelId)
+		.bind(stringContent, userId, guildId, channelId)
 		.run();
 	const id = response.meta.last_row_id;
 
@@ -48,13 +71,7 @@ export async function handleStringCommand({ interaction, db }: CommandInput) {
 	});
 }
 
-export interface ActionInput {
-	interaction: any;
-	db: D1Database;
-	id: string;
-}
-
-export async function handleRevealStringAction({ interaction, db, id }: ActionInput) {
+export async function handleRevealStringAction({ interaction, db, id }: { interaction: any; db: D1Database; id: string }) {
 	// Query database
 	const result = await db.prepare('SELECT * FROM protected_strings WHERE id = ?').bind(id).first();
 	if (!result) throw new Error('Error retrieving record from database');
@@ -85,7 +102,7 @@ export async function handleRevealStringAction({ interaction, db, id }: ActionIn
 	});
 }
 
-export async function handleViewLogsAction({ interaction, db, id }: ActionInput) {
+export async function handleViewLogsAction({ db, id }: { db: D1Database; id: string }) {
 	// Query database
 	const result = await db.prepare('SELECT * FROM protected_strings WHERE id = ?').bind(id).first();
 	if (!result) throw new Error('Error retrieving record from database');

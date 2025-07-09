@@ -7,14 +7,7 @@ const commands = [
 	{
 		name: 'string',
 		description: 'Protect a message behind a reveal button',
-		options: [
-			{
-				type: 3, // STRING
-				name: 'message',
-				description: 'The message to protect',
-				required: true,
-			},
-		],
+		options: [],
 	},
 ];
 
