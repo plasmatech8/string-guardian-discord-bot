@@ -1,11 +1,8 @@
 import { InteractionType, verifyKey } from 'discord-interactions';
-import {
-	handlePingCommand,
-	handleRevealStringAction,
-	handleStringCommand,
-	handleStringModalSubmit,
-	handleViewLogsAction,
-} from './interactions';
+import { handleRevealStringAction, handleViewLogsAction } from './interactions/button-actions';
+import { handleStringCommand } from './interactions/commands';
+import { handleStringModalSubmit } from './interactions/modal-submit';
+import { handlePing } from './interactions/ping';
 
 export default {
 	async fetch(request, env): Promise<Response> {
@@ -28,7 +25,7 @@ export default {
 
 		// 1. Ping check
 		if (interaction.type === InteractionType.PING) {
-			return handlePingCommand();
+			return handlePing();
 		}
 
 		// 2. Slash commands
