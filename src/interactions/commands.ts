@@ -26,3 +26,18 @@ export async function handleStringCommand() {
 		},
 	});
 }
+
+export async function handleSetPingRoleCommand({ interaction, db }: { interaction: any; db: D1Database }) {
+	const roleId = interaction.data.options?.[0]?.value;
+	console.log(roleId);
+	db;
+	// await db.prepare('UPDATE settings SET ping_role = ?').bind(roleId).run();
+
+	return Response.json({
+		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+		data: {
+			content: `✅ Ping role set to <@&${roleId}>.`,
+			flags: 64, // ephemeral
+		},
+	});
+}

@@ -9,6 +9,19 @@ const commands = [
 		description: 'Protect a message behind a reveal button',
 		options: [],
 	},
+	{
+		name: 'set-ping-role',
+		description: 'Set the role to @ ping when a string is created in this channel',
+		default_member_permissions: 0x0000000000000010, // MANAGE_CHANNELS permission
+		options: [
+			{
+				name: 'role',
+				description: 'The role to set as the ping role',
+				type: 8, // ROLE type
+				required: false,
+			},
+		],
+	},
 ];
 
 const url = `https://discord.com/api/v10/applications/${APP_ID}/commands`;
