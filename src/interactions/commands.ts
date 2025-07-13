@@ -28,15 +28,23 @@ export async function handleStringCommand() {
 }
 
 export async function handleSetPingRoleCommand({ interaction, db }: { interaction: any; db: D1Database }) {
-	const roleId = interaction.data.options?.[0]?.value;
-	console.log(roleId);
-	db;
-	// await db.prepare('UPDATE settings SET ping_role = ?').bind(roleId).run();
+	const roleId = interaction.data.options?.[0]?.value ?? '';
+	const channelId = interaction.channel_id;
+	const guildId = interaction.guild_id;
+
+	await db
+		.prepare(
+			'INSERT INTO channel_settings (channel_id, guild_id, ping_role_id) VALUES (?, ?, ?) ON CONFLICT(channel_id) DO UPDATE SET ping_role_id = ?;'
+		)
+		.bind(channelId, guildId, roleId, roleId)
+		.run();
 
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: `✅ Ping role set to <@&${roleId}>.`,
+			content: roleId
+				? `✅ <@&${roleId}> will be @ pinged when a string is created in this channel.`
+				: '✅ No role will be @ pinged when a string is created in this channel.',
 			flags: 64, // ephemeral
 		},
 	});
