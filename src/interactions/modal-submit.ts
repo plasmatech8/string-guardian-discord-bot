@@ -1,6 +1,6 @@
 import { InteractionResponseType } from 'discord-interactions';
 
-export async function handleStringModalSubmit({ interaction, db }: { interaction: any; db: D1Database }) {
+export async function handleStringModalSubmit({ interaction, db, roleToPing }: { interaction: any; db: D1Database; roleToPing?: string }) {
 	// Insert into database
 	const stringContent = interaction.data.components[0].components[0].value ?? 'No content';
 	const userId = interaction.member.user.id;
@@ -15,7 +15,7 @@ export async function handleStringModalSubmit({ interaction, db }: { interaction
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: '🔐 A string was created.',
+			content: '🔐 A string was created.' + (roleToPing ? ` <@&${roleToPing}>` : ''),
 			components: [
 				{
 					type: 1, // action row

@@ -7,7 +7,14 @@ const commands = [
 	{
 		name: 'string',
 		description: 'Protect a message behind a reveal button',
-		options: [],
+		options: [
+			{
+				type: 8, // Role
+				name: 'ping-role',
+				description: 'Role to @ping',
+				required: false,
+			},
+		],
 	},
 ];
 

@@ -1,10 +1,11 @@
 import { InteractionResponseType } from 'discord-interactions';
 
-export async function handleStringCommand() {
+export async function handleStringCommand({ interaction }: { interaction: any }) {
+	const roleToPing = interaction.data.options?.[0]?.value || '';
 	return Response.json({
 		type: InteractionResponseType.MODAL,
 		data: {
-			custom_id: 'string_modal',
+			custom_id: `string_modal#${roleToPing}`,
 			title: 'Create Protected String',
 			components: [
 				{

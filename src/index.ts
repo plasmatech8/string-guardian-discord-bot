@@ -32,7 +32,7 @@ export default {
 		if (interaction.type === InteractionType.APPLICATION_COMMAND) {
 			switch (interaction.data.name) {
 				case 'string':
-					return handleStringCommand();
+					return handleStringCommand({ interaction });
 				default:
 					return new Response('Invalid command name', { status: 400 });
 			}
@@ -53,8 +53,9 @@ export default {
 
 		// 4. Modal submit
 		if (interaction.type === InteractionType.MODAL_SUBMIT) {
-			if (interaction.data.custom_id === 'string_modal') {
-				return handleStringModalSubmit({ interaction, db });
+			const [action, roleToPing] = interaction.data.custom_id.split('#');
+			if (action === 'string_modal') {
+				return handleStringModalSubmit({ interaction, db, roleToPing });
 			}
 			return new Response('Invalid modal interaction ID', { status: 400 });
 		}
