@@ -12,10 +12,16 @@ export async function handleStringModalSubmit({ interaction, db }: { interaction
 		.run();
 	const id = response.meta.last_row_id;
 
+	// Get the role to ping from the database
+	const result = await db.prepare('SELECT * FROM channel_settings WHERE channel_id = ?').bind(channelId).first();
+	if (!result) throw new Error('Error retrieving record from database');
+	const roleIdToPing = result.ping_role_id || '';
+	console.log({ result, roleIdToPing });
+
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: '🔐 A string was created.',
+			content: `🔐 A string was created.` + (roleIdToPing ? `<@&${roleIdToPing}>` : ''),
 			components: [
 				{
 					type: 1, // action row
