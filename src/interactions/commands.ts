@@ -27,10 +27,12 @@ export async function handleStringCommand() {
 	});
 }
 
+export type ChannelSettingsConfig = { ping_enabled?: boolean; ping_role?: string };
+
 export async function handleConfigureCommand({ interaction, db }: { interaction: any; db: D1Database }) {
 	// Get config changes from parameters
 	const options: { name: string; type: number; value: any }[] = interaction.data.options ?? [];
-	const configChanges = options.reduce((agg, next) => {
+	const configChanges: ChannelSettingsConfig = options.reduce((agg, next) => {
 		return { ...agg, [next.name]: next.value };
 	}, {});
 	console.log({ configChanges });
