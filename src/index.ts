@@ -34,7 +34,6 @@ export default {
 				case 'string':
 					return handleStringCommand();
 				case 'configure':
-					console.log(interaction.data.options);
 					return handleConfigureCommand({ interaction, db });
 				default:
 					return new Response('Invalid command name', { status: 400 });
