@@ -10,14 +10,20 @@ const commands = [
 		options: [],
 	},
 	{
-		name: 'set-ping-role',
-		description: 'Set the role to @ ping when a string is created in this channel',
-		default_member_permissions: 0x0000000000000010, // MANAGE_CHANNELS permission
+		name: 'configure',
+		description: 'Configure channel settings for String Guardian',
+		default_member_permissions: 0x10, // MANAGE_CHANNELS permission
 		options: [
 			{
-				name: 'role',
-				description: 'The role to set as the ping role',
-				type: 8, // ROLE type
+				name: 'ping_enabled',
+				description: 'Enable or disable @role pings when a string is posted',
+				type: 5, // BOOLEAN
+				required: false,
+			},
+			{
+				name: 'ping_role',
+				description: 'Select the @role to ping when a string is posted',
+				type: 8, // ROLE
 				required: false,
 			},
 		],

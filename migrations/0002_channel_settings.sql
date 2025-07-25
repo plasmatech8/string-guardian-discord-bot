@@ -6,5 +6,5 @@ create table channel_settings(
     channel_id text not null primary key,
     guild_id text not null,
     created_at timestamptz default current_timestamp not null,
-    ping_role_id text not null default ""
+    config text not null default "{}" check(json_valid(config))
 );
