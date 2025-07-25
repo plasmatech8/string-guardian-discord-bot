@@ -1,4 +1,5 @@
 import { InteractionResponseType } from 'discord-interactions';
+import { ChannelSettingsConfig } from '../types';
 
 export async function handleStringModalSubmit({ interaction, db }: { interaction: any; db: D1Database }) {
 	// Insert into database
@@ -12,10 +13,16 @@ export async function handleStringModalSubmit({ interaction, db }: { interaction
 		.run();
 	const id = response.meta.last_row_id;
 
+	// Get the role to ping from the database
+	const result = await db.prepare('SELECT * FROM channel_settings WHERE channel_id = ?').bind(channelId).first();
+	const config: ChannelSettingsConfig = result ? JSON.parse((result.config as string) || '{}') : {};
+	console.log({ result, config });
+	const pingText = config.ping_role ? ` <@&${config.ping_role}>` : ' (Ping is enabled but no @role is configured)';
+
 	return Response.json({
 		type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
 		data: {
-			content: '🔐 A string was created.',
+			content: `🔐 A string was created.` + (config.ping_enabled ? pingText : ''),
 			components: [
 				{
 					type: 1, // action row

@@ -9,6 +9,25 @@ const commands = [
 		description: 'Protect a message behind a reveal button',
 		options: [],
 	},
+	{
+		name: 'configure',
+		description: 'Configure channel settings for String Guardian',
+		default_member_permissions: 0x10, // MANAGE_CHANNELS permission
+		options: [
+			{
+				name: 'ping_enabled',
+				description: 'Enable or disable @role pings when a string is posted',
+				type: 5, // BOOLEAN
+				required: false,
+			},
+			{
+				name: 'ping_role',
+				description: 'Select the @role to ping when a string is posted',
+				type: 8, // ROLE
+				required: false,
+			},
+		],
+	},
 ];
 
 const url = `https://discord.com/api/v10/applications/${APP_ID}/commands`;
