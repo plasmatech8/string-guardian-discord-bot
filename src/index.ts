@@ -1,6 +1,6 @@
 import { InteractionType, verifyKey } from 'discord-interactions';
 import { handleRevealStringAction, handleViewLogsAction } from './interactions/button-actions';
-import { handleStringCommand } from './interactions/commands';
+import { handleConfigureCommand, handleStringCommand } from './interactions/commands';
 import { handleStringModalSubmit } from './interactions/modal-submit';
 import { handlePing } from './interactions/ping';
 
@@ -33,6 +33,8 @@ export default {
 			switch (interaction.data.name) {
 				case 'string':
 					return handleStringCommand();
+				case 'configure':
+					return handleConfigureCommand({ interaction, db });
 				default:
 					return new Response('Invalid command name', { status: 400 });
 			}

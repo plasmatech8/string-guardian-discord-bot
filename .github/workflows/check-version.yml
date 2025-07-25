@@ -2,6 +2,7 @@ name: Check package version bump
 
 on:
   pull_request:
+    branches: [main]
     paths:
       - 'src/**'
       - 'migrations/**'
