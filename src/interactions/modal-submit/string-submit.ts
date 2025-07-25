@@ -1,5 +1,5 @@
 import { InteractionResponseType } from 'discord-interactions';
-import { ChannelSettingsConfig } from './commands';
+import { ChannelSettingsConfig } from '../types';
 
 export async function handleStringModalSubmit({ interaction, db }: { interaction: any; db: D1Database }) {
 	// Insert into database
