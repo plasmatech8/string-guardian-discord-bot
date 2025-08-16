@@ -9,17 +9,16 @@
 
 **String Guardian** is a serverless Discord bot that protects sensitive messages (like server IPs, connection strings or passwords) behind a reveal button, with logging to track who accessed them.
 
-👉 [**Add String Guardian to your server**](https://discord.com/oauth2/authorize?client_id=1387414117106581625)
+👉 [**Add String Guardian to your server**](https://discord.com/oauth2/authorize?client_id=1387414117106581625) *([Privacy Disclaimer](#-installation-for-server-admins))*
 
 **✨ Features:**
 - 🔐 Protect sensitive messages behind a reveal button
 - 👁️ Track who viewed your strings, with timestamps
 - ⚡ Simple /string command for posting protected content
 - 🔔 Optional role pings to alert the right users
-- 🛡️ Useful for PUG discord servers, game servers, or community moderation
 
 **🎯 Use cases:**
-- 🎮 Perfect for for **pickup game (PUG)** servers or any community that wants to share connection info
+- 🎮 Perfect for **Pickup Game (PUG)** Discord servers or any community that wants to share connection info
 in **public channels** while tracking which members access it — making it easier to handle trolls,
 harassers, or DDoSers.
 
@@ -33,6 +32,7 @@ harassers, or DDoSers.
 1. Use `/string` to create a protected message
 2. Members click **Reveal String** to see it (ephemeral)
 3. Moderators click **View Logs** to see who revealed it
+4. Admins can use a `/configure` command to enable or modify features
 
 ### 🧶 Creating a String
 
@@ -62,6 +62,20 @@ When a user clicks the **View Logs** button:
 - An **ephemeral message** is sent to the user containing a list of every Discord user who viewed the string and the timestamp
 
 ![Screenshot of the ephemeral message sent after clicking the view logs button](assets/screenshots/view_logs.png)
+
+### 🔧 Configure Channel Settings
+
+The `/configure` command will only be visible to users with the `MANAGE_CHANNELS` permission (admins).
+
+Configure settings for the specific text channel using the `/configure` command:
+
+![Screenshot of the configure command plus options](assets/screenshots/configure_command_empty.png)
+
+e.g:
+![Screenshot of the configure command including options populated with values](assets/screenshots/configure_command_populated.png)
+
+Response:
+![Screenshot of the response from the configure command](assets/screenshots/configure_command_response.png)
 
 ## 🚀 Installation (for server admins)
 
@@ -134,4 +148,4 @@ ensure that the following secrets are configured under **Settings > Variables an
 
 ## License
 
-[MIT](LICENSE)
+Released under the [MIT License](LICENSE).
