@@ -16,34 +16,36 @@ This bot is ideal for **pickup game (PUG) servers** or any community where:
 
 ## 🎥 Demo
 
-<img src="assets/string_guardian_demo.gif" alt="Demo GIF"/>
+![Demo Video](assets/videos/string-guardian-main-demo.webp)
 
 ## 📌 Usage
 
-Create a protected string message using the slash command:
+Create a protected string message using the `/string` command:
 
-```bash
-/string "connect ip-address; password my-password;"
-```
+![Screenshot of the /string command](assets/screenshots/string_command.png)
+
+And entering your string content into the form:
+
+![Screenshot of the string modal form](assets/screenshots/string_modal.png)
 
 This will send a message to the channel.
 
-![Protected string create message](assets/demo_screenshot_string_created.png)
+![Screenshot of the string created message](assets/screenshots/a_string_was_created_message.png)
 
 ### 🔓 Reveal Button
 
 When a user clicks the **Reveal String** button:
-- Logs the user's ID + timestamp
-- Sends the string to the user as an **ephemeral message** (only the user can view)
+- The user ID and timestamp is logged
+- An **ephemeral message** is sent to the user containing the string (only the user can see it)
 
-![The ephemeral message sent after clicking the reveal string button](assets/demo_screenshot_reveal_string.png)
+![Screenshot of the ephemeral message sent after clicking the reveal string button](assets/screenshots/reveal_string.png)
 
 ### 📜 View Logs Button
 
 When a user clicks the **View Logs** button:
-- Sends the user an **ephemeral message** listing everyone who viewed the string and when
+- An **ephemeral message** is sent to the user containing a list of every Discord user who viewed the string and the timestamp
 
-![The ephemeral message sent after clicking the view logs button](assets/demo_screenshot_view_logs.png)
+![Screenshot of the ephemeral message sent after clicking the view logs button](assets/screenshots/view_logs.png)
 
 ## 🚀 Installation (for server admins)
 
