@@ -53,7 +53,7 @@ To add **String Guardian** to your Discord server:
 
 👉 [**Click here to invite the bot**](https://discord.com/oauth2/authorize?client_id=1387414117106581625)
 
-*Disclaimer: This bot stores data such as Discord user/guild/channel ID and timestamps. Data will not be shared unless required for legal compliance. Data may be deleted at any time at the discretion of the bot owner.*
+*Disclaimer: This bot stores data such as Discord user/guild/channel ID, timestamps, and the submitted string content. Data will not be shared unless required for legal compliance. Data may be deleted at any time at the discretion of the bot owner.*
 
 
 ## 🛠️ Development Setup
