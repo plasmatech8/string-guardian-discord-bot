@@ -9,6 +9,8 @@
 
 **String Guardian** is a serverless Discord bot that protects sensitive messages (like server IPs, connection strings or passwords) behind a reveal button, with logging to track who accessed them.
 
+👉 [**Add String Guardian to your server**](https://discord.com/oauth2/authorize?client_id=1387414117106581625)
+
 **✨ Features:**
 - 🔐 Protect sensitive messages behind a reveal button
 - 👁️ Track who viewed your strings, with timestamps
@@ -20,7 +22,6 @@
 - 🎮 Perfect for for **pickup game (PUG)** servers or any community that wants to share connection info
 in **public channels** while tracking which members access it — making it easier to handle trolls,
 harassers, or DDoSers.
-
 
 ## 🎥 Demo
 
