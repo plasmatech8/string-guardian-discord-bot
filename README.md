@@ -22,7 +22,7 @@ This bot is ideal for **pickup game (PUG) servers** or any community where:
 
 Create a protected string message using the `/string` command:
 
-![Screenshot of the /string command](assets/screenshots/string_command.png)
+![Screenshot of the string command](assets/screenshots/string_command.png)
 
 And entering your string content into the form:
 
