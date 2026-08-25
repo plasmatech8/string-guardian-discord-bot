@@ -1,10 +1,14 @@
 import { InteractionResponseType } from 'discord-interactions';
 
+function redactProtectedStringRow(result: Record<string, unknown>) {
+	return { ...result, string: '[REDACTED]' };
+}
+
 export async function handleViewLogsAction({ db, id }: { db: D1Database; id: string }) {
 	// Query database
 	const result = await db.prepare('SELECT * FROM protected_strings WHERE id = ?').bind(id).first();
 	if (!result) throw new Error('Error retrieving record from database');
-	console.log(result);
+	console.log(redactProtectedStringRow(result));
 
 	// Return information as ephemeral message
 	const viewers = JSON.parse(result.viewers as string) as Record<string, number>;
