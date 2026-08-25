@@ -10,20 +10,20 @@ export default {
 	async fetch(request, env): Promise<Response> {
 		const signature = request.headers.get('x-signature-ed25519');
 		const timestamp = request.headers.get('x-signature-timestamp');
-		const rawBody = await request.text();
-		const interaction = JSON.parse(rawBody);
-		const db = env.DB;
 
 		// Verify the request
 		const PUBLIC_KEY = env.PUBLIC_KEY;
-		const isValidRequest = await verifyKey(rawBody, signature!, timestamp!, PUBLIC_KEY);
 		if (!signature || !timestamp || !PUBLIC_KEY) {
-			console.log(signature, timestamp, PUBLIC_KEY);
 			return new Response('Missing signature, timestamp, or public key', { status: 401 });
 		}
+		const rawBody = await request.text();
+		const isValidRequest = await verifyKey(rawBody, signature, timestamp, PUBLIC_KEY);
 		if (!isValidRequest) {
 			return new Response('Invalid request signature', { status: 401 });
 		}
+
+		const interaction = JSON.parse(rawBody);
+		const db = env.DB;
 
 		// 1. Ping check
 		if (interaction.type === InteractionType.PING) {

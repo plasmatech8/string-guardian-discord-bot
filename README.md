@@ -60,6 +60,7 @@ When a user clicks the **Reveal String** button:
 
 When a user clicks the **View Logs** button:
 - An **ephemeral message** is sent to the user containing a list of every Discord user who viewed the string and the timestamp
+- Anyone who can see the protected string message can use the **View Logs** button
 
 ![Screenshot of the ephemeral message sent after clicking the view logs button](assets/screenshots/view_logs.png)
 
@@ -85,12 +86,16 @@ Add **String Guardian** to your Discord server:
 
 **Privacy Disclaimer:** *This bot stores data such as **Discord IDs**, **timestamps**, and **submitted string content**. Data will not be shared unless required for legal compliance. Data may be deleted at any time at the discretion of the bot owner.*
 
+Anyone who can see a protected string message can reveal it and view its access log.
+
 ## 🛠️ Development Setup
 
 <details>
 <summary>Local Development</summary>
 
 Ensure that the Discord bot is created on the Discord developer portal.
+
+Use Node.js 22 or newer.
 
 Create `.dev.vars` and fill the variables as per `.dev.vars.example` using
 information from the Discord developer portal.
